@@ -1,68 +1,38 @@
 package org.example;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
 
-            int highScore = getHighScore();
-
-            Scanner scanner = new Scanner(System.in);
-
-            int number = (int) (Math.random() * 101);
-            int tries = 1;
-
-            System.out.println("(Try 1) Guess the right number: (1 - 100)\n");
-            int inputNumber = scanner.nextInt();
-
-            while (number != inputNumber) {
-
-                tries ++;
-
-                if (number > inputNumber) {
-
-                    System.out.println("The number is higher than: " + inputNumber);
-
-                } else {
-
-                    System.out.println("The number is lower than: " + inputNumber);
-
-                }
-
-                System.out.println("(Try: " + tries + ")\nGuess again\n");
-                inputNumber = scanner.nextInt();
-
-            }
-
-        System.out.println("Correct number is: " + inputNumber + "\nTries: " + tries);
-
-        if (highScore > tries) {
-            System.out.println("Highscore beaten");
-            try {
-                YmlHandler.putYmlData("highscore", tries);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }
+        initHL();
 
     }
 
-    private static int getHighScore() {
+    public static void initHL() {
 
-        if (YmlHandler.getYmlData().get("highscore") == null) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("What do you want to do?\n1. Play the game\n2. See your statistics\n3. Close menu");
 
-            try {
-                YmlHandler.putYmlData("highscore", 10000000);
-            } catch (IOException e) {
-                System.out.println("Debug time!!");
-                e.printStackTrace();
-            }
+        int menuChoice = scanner.nextInt();
+
+        menuFunctionality(menuChoice);
+
+    }
+
+    private static void menuFunctionality(int choice) {
+
+        switch (choice) {
+
+            case 1 -> Game.playGame();
+
+            case 2 -> Stats.seeStats();
+
+            case 3 -> System.exit(1);
+
         }
 
-        return (Integer) YmlHandler.getYmlData().get("highscore");
     }
 
 }

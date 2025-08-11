@@ -26,7 +26,7 @@ public class YmlHandler {
         }
     }
 
-    public static Map<String, Object> getYmlData() {
+    private static Map<String, Object> getYmlData() {
 
         Yaml ymlFile = new Yaml();
 
@@ -43,7 +43,20 @@ public class YmlHandler {
 
         }
 
+    }
 
+    public static int getStat(String key, int defaultValue) {
+
+        if (YmlHandler.getYmlData().get(key) == null) {
+
+            try {
+                YmlHandler.putYmlData(key, defaultValue);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return (Integer) YmlHandler.getYmlData().get(key);
     }
 
 }
