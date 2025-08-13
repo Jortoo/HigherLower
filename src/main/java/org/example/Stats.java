@@ -1,5 +1,6 @@
 package org.example;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Stats {
@@ -23,6 +24,31 @@ public class Stats {
         }
 
         Main.initHL();
+
+    }
+
+    public static void setHighscore(int tries) {
+
+        try {
+            YmlHandler.putYmlData("highscore", tries);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void setTotalGames() {
+
+        try {
+
+            int totalGames = YmlHandler.getStat("Total-games", 0);
+            int finalTotalGames = totalGames + 1;
+
+            YmlHandler.putYmlData("Total-games", finalTotalGames);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 

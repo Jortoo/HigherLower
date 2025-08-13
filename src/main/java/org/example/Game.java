@@ -40,25 +40,13 @@ public class Game {
         System.out.println("Correct number is: " + inputNumber + "\nTries: " + tries);
 
         if (highScore > tries) {
+
             System.out.println("Highscore beaten");
-            try {
-                YmlHandler.putYmlData("highscore", tries);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            Stats.setHighscore(tries);
 
         }
 
-        try {
-
-            int totalGames = YmlHandler.getStat("Total-games", 0);
-            int finalTotalGames = totalGames + 1;
-
-            YmlHandler.putYmlData("Total-games", finalTotalGames);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Stats.setTotalGames();
 
         Main.initHL();
 
